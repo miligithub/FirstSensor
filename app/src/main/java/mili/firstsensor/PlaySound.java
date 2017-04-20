@@ -6,15 +6,19 @@ import android.media.AudioTrack;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class PlaySound extends AppCompatActivity {
     // originally from http://marblemice.blogspot.com/2010/04/generate-and-play-tone-in-android.html
     // and modified by Steve Pomeroy <steve@staticfree.info>
-    private final int duration = 3; // seconds
+    private final int maxFreq = 24000; // hz
+    private final double duration = 1.5; // seconds
     private final int sampleRate = 8000;
-    private final int numSamples = duration * sampleRate;
+    private final int numSamples = (int) duration * sampleRate;
     private final double sample[] = new double[numSamples];
-    private final double freqOfTone = 440; // hz
+    private double freqOfTone = 440; // hz
 
     private final byte generatedSnd[] = new byte[2 * numSamples];
 
@@ -67,10 +71,33 @@ public class PlaySound extends AppCompatActivity {
         audioTrack.play();
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_sound);
+
+        final TextView frequencyText = (TextView) findViewById(R.id.frequency_text);
+        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressChanged = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+                progressChanged = progress;
+                freqOfTone = progressChanged*maxFreq/100;
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                frequencyText.setText("Frequency: " + freqOfTone + " Hz");
+                genTone();
+                playSound();
+            }
+        });
+
+
     }
 }

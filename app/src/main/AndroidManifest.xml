@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PlaySound"></activity>
+        <activity android:name=".PlaySound" />
+        <activity android:name=".AnalyzeSound"></activity>
     </application>
 
 </manifest>
