@@ -58,8 +58,61 @@
         android:layout_centerHorizontal="true" />
 
     <RadioGroup
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/result_text"
-        android:layout_centerHorizontal="true"></RadioGroup>
+        android:id="@+id/radioGroup"
+        android:layout_below="@+id/seekBar"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/analyze_text">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="do"
+            android:id="@+id/do_button"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="re"
+            android:id="@+id/re_button"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mi"
+            android:id="@+id/mi_button"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fa"
+            android:id="@+id/fa_button"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="so"
+            android:id="@+id/so_button"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="la"
+            android:id="@+id/la_button"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ti"
+            android:id="@+id/ti_button"
+            android:checked="false" />
+    </RadioGroup>
 </RelativeLayout>
