@@ -17,13 +17,13 @@ public class PlaySound extends AppCompatActivity {
     // originally from http://marblemice.blogspot.com/2010/04/generate-and-play-tone-in-android.html
     // and modified by Steve Pomeroy <steve@staticfree.info>
     private final int maxFreq = 24000; // hz
-    private final double duration = 1.5; // seconds
+    private final double duration = 1; // seconds
     private final int sampleRate = 8000;
     private final int numSamples = (int) duration * sampleRate;
     private final double sample[] = new double[numSamples];
     private final byte generatedSnd[] = new byte[2 * numSamples];
 
-    private double freqOfTone = 440; // hz
+    private double freqOfTone = 262; // hz
 
     Handler handler = new Handler();
 
@@ -88,6 +88,7 @@ public class PlaySound extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
                 progressChanged = progress;
                 freqOfTone = progressChanged*maxFreq/100;
+                frequencyText.setText("Frequency: " + freqOfTone + " Hz");
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -95,7 +96,6 @@ public class PlaySound extends AppCompatActivity {
             }
 
             public void onStopTrackingTouch(SeekBar seekBar) {
-                frequencyText.setText("Frequency: " + freqOfTone + " Hz");
                 genTone();
                 playSound();
             }
@@ -105,29 +105,32 @@ public class PlaySound extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // Do (262 Hz) Re (294 Hz) Mi (330 Hz) Fa (349 Hz) Sol (392 Hz) La (440 Hz) Si (494 Hz)
-                if (checkedId == 0) {
-                    freqOfTone = 262;
-                } else if (checkedId == 1) {
-                    freqOfTone = 294;
-                } else if (checkedId == 2) {
-                    freqOfTone = 330;
-                } else if (checkedId == 3) {
-                    freqOfTone = 349;
-                } else if (checkedId == 4) {
-                    freqOfTone = 392;
-                } else if (checkedId == 5) {
-                    freqOfTone = 440;
-                } else if (checkedId == 6) {
-                    freqOfTone = 494;
-                }
+
                 // get selected radio button from radioGroup
                 int selectedId = group.getCheckedRadioButtonId();
 
                 // find the radiobutton by returned id
                 RadioButton checkedButton = (RadioButton) findViewById(selectedId);
 
-                Toast.makeText(PlaySound.this, Integer.toString(selectedId)+ ": " + checkedButton.getText(), Toast.LENGTH_SHORT).show();
+                String checkedString = checkedButton.getText().toString();
+
+                // Do (262 Hz) Re (294 Hz) Mi (330 Hz) Fa (349 Hz) Sol (392 Hz) La (440 Hz) Si (494 Hz)
+                if (checkedString.equals("do")) {
+                    freqOfTone = 262;
+                } else if (checkedString.equals("re")) {
+                    freqOfTone = 294;
+                } else if (checkedString.equals("mi")) {
+                    freqOfTone = 330;
+                } else if (checkedString.equals("fa")) {
+                    freqOfTone = 349;
+                } else if (checkedString.equals("so")) {
+                    freqOfTone = 392;
+                } else if (checkedString.equals("la")) {
+                    freqOfTone = 440;
+                } else if (checkedString.equals("ti")) {
+                    freqOfTone = 494;
+                }
+//                Toast.makeText(PlaySound.this, Double.toString(freqOfTone)+ ": " + checkedString, Toast.LENGTH_SHORT).show();
 
                 frequencyText.setText("Frequency: " + freqOfTone + " Hz");
                 genTone();
