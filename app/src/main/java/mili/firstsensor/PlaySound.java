@@ -20,6 +20,7 @@ public class PlaySound extends AppCompatActivity {
     // originally from http://marblemice.blogspot.com/2010/04/generate-and-play-tone-in-android.html
     // and modified by Steve Pomeroy <steve@staticfree.info>
     private final int maxFreq = 500; // hz
+    private final int max2Freq = 20000; // hz
     private final double duration = 1; // seconds
     private final int sampleRate = 8000;
     private final int numSamples = (int) duration * sampleRate;
@@ -89,14 +90,38 @@ public class PlaySound extends AppCompatActivity {
         Log.i(TAG, speakerUltra + "\n sample rate: " + optimalSampleRate + ", buffer size: " + optimalFramesPerBuffer);
 
         final TextView frequencyText = (TextView) findViewById(R.id.frequency_text);
-        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
 
+        TextView max1Text = (TextView) findViewById(R.id.max1_text);
+        max1Text.setText(maxFreq + " Hz");
+        TextView max2Text = (TextView) findViewById(R.id.max2_text);
+        max2Text.setText(max2Freq + " Hz");
+        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressChanged = 0;
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
                 progressChanged = progress;
                 freqOfTone = progressChanged*maxFreq/100;
+                frequencyText.setText("Frequency: " + freqOfTone + " Hz");
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                genTone();
+                playSound();
+            }
+        });
+
+        SeekBar seekBarLarger = (SeekBar) findViewById(R.id.seekBarLarger);
+        seekBarLarger.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressChanged = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+                progressChanged = progress;
+                freqOfTone = progressChanged*max2Freq/100;
                 frequencyText.setText("Frequency: " + freqOfTone + " Hz");
             }
 

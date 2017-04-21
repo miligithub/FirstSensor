@@ -23,48 +23,63 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="AnalyzeSound"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/analyze_text" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/activity_vertical_margin"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Original Frequency"
         android:id="@+id/frequency_text"
         android:layout_below="@+id/play_text"
         android:layout_centerHorizontal="true" />
 
-    <SeekBar
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/firstRow"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:id="@+id/seekBar"
-        android:layout_below="@+id/frequency_text"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/frequency_text">
+        <SeekBar
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar"
+            android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="max1"
+            android:id="@+id/max1_text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/secondRow"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Received Frequency"
-        android:id="@+id/result_text"
-        android:layout_below="@+id/analyze_text"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/firstRow">
+        <SeekBar
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBarLarger"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="max2"
+            android:id="@+id/max2_text" />
+
+    </LinearLayout>
+
 
     <RadioGroup
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:id="@+id/radioGroup"
-        android:layout_below="@+id/seekBar"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/analyze_text">
+        android:layout_below="@+id/secondRow"
+        android:layout_centerHorizontal="true">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -115,4 +130,26 @@
             android:id="@+id/ti_button"
             android:checked="false" />
     </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="100dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="AnalyzeSound"
+        android:id="@+id/analyze_text"
+        android:layout_below="@+id/radioGroup"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Received Frequency"
+        android:id="@+id/result_text"
+        android:layout_below="@+id/analyze_text"
+        android:layout_centerHorizontal="true" />
+
+
 </RelativeLayout>
