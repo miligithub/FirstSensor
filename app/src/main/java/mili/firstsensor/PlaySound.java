@@ -1,11 +1,13 @@
 package mili.firstsensor;
 
+import android.content.Context;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -14,9 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class PlaySound extends AppCompatActivity {
+    private static final String TAG = "PlaySoundActivity";
     // originally from http://marblemice.blogspot.com/2010/04/generate-and-play-tone-in-android.html
     // and modified by Steve Pomeroy <steve@staticfree.info>
-    private final int maxFreq = 24000; // hz
+    private final int maxFreq = 500; // hz
     private final double duration = 1; // seconds
     private final int sampleRate = 8000;
     private final int numSamples = (int) duration * sampleRate;
@@ -78,6 +81,12 @@ public class PlaySound extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_sound);
+
+        AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        int optimalFramesPerBuffer = Integer.parseInt(am.getProperty(AudioManager.PROPERTY_OUTPUT_FRAMES_PER_BUFFER));
+        int optimalSampleRate = Integer.parseInt(am.getProperty(AudioManager.PROPERTY_OUTPUT_SAMPLE_RATE));
+        String speakerUltra = am.getProperty(AudioManager.PROPERTY_SUPPORT_SPEAKER_NEAR_ULTRASOUND);
+        Log.i(TAG, speakerUltra + "\n sample rate: " + optimalSampleRate + ", buffer size: " + optimalFramesPerBuffer);
 
         final TextView frequencyText = (TextView) findViewById(R.id.frequency_text);
         SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
